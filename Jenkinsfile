@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_COMPOSE_FILE = '/home/ubuntu/Jenkins-Django/docker/deployment/app.yml'
+        DJANGO_SETTINGS_MODULE = 'config.settings'
     }
 
     stages {
@@ -17,7 +18,10 @@ pipeline {
         stage('Cleanup Previous Containers') {
             steps {
                 script {
-                    sh 'docker compose -f $DOCKER_COMPOSE_FILE down'
+                    // Run the Docker Compose up command using the correct path and environment variables
+                    withEnv(["DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE"]) {
+                        sh "docker compose -f $DOCKER_COMPOSE_FILE down"
+                    }
                 }
             }
         }
@@ -25,7 +29,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
-                    sh 'docker compose -f $DOCKER_COMPOSE_FILE build'
+                    sh "docker compose -f $DOCKER_COMPOSE_FILE build"
                 }
             }
         }
@@ -33,7 +37,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker compose -f $DOCKER_COMPOSE_FILE up -d'
+                    sh "docker compose -f $DOCKER_COMPOSE_FILE up -d"
                 }
             }
         }
