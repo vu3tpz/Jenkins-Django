@@ -13,7 +13,7 @@ pipeline {
         stage('Cleanup Previous Containers') {
             steps {
                 script {
-                    sh 'docker-compose down'
+                    sh 'docker compose -f ./docker/deployment/app.yml down'
                 }
             }
         }
@@ -21,7 +21,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
-                    sh 'docker-compose build'
+                    sh 'docker compose -f ./docker/deployment/app.yml build'
                 }
             }
         }
@@ -29,7 +29,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker-compose up -d'
+                    sh 'docker compose -f ./docker/deployment/app.yml up -d'
                 }
             }
         }
