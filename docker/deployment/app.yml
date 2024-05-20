@@ -18,6 +18,8 @@ services:
     extra_hosts:
       - "host.docker.internal:host-gateway"
     command: bash -c "gunicorn config.wsgi -b 0.0.0.0:8000 --chdir=/app --reload"
+    environment:
+      DJANGO_SETTINGS_MODULE: config.settings
 
   redis:
     image: redis:latest
