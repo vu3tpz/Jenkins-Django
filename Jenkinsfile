@@ -15,14 +15,6 @@ pipeline {
             }
         }
 
-        stage('Cleanup Previous Containers') {
-            steps {
-                script {
-                    sh "docker compose -f $DOCKER_COMPOSE_FILE down"
-                }
-            }
-        }
-
         stage('Build and Test') {
             steps {
                 script {

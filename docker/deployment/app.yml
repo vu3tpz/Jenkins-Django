@@ -9,7 +9,7 @@ services:
     volumes:
       - ../../:/app:z
     env_file:
-      - /home/ubuntu/Jenkins-Django/.env
+      - ../../.env
     ports:
       - "8000:8000"
     depends_on:
@@ -31,7 +31,7 @@ services:
     volumes:
       - ../../:/app:z
     env_file:
-      - /home/ubuntu/Jenkins-Django/.env
+      - ../../.env
     ports:
       - "5555:5555"
       - "9001:9001"
