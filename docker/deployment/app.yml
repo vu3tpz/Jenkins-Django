@@ -8,8 +8,6 @@ services:
       dockerfile: ./docker/deployment/dockerfiles/Dockerfile-app
     volumes:
       - ../../:/app:z
-    env_file:
-      - ./Jenkins-Django/.env
     ports:
       - "8000:8000"
     depends_on:
@@ -30,8 +28,6 @@ services:
       dockerfile: ./docker/deployment/dockerfiles/Dockerfile-app
     volumes:
       - ../../:/app:z
-    env_file:
-      - ./Jenkins-Django/.env
     ports:
       - "5555:5555"
       - "9001:9001"
