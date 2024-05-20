@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_COMPOSE_FILE = '/home/ubuntu/Jenkins-Django/docker/deployment/app.yml'
+    }
+
     stages {
         stage('Checkout') {
             steps {
@@ -13,7 +17,7 @@ pipeline {
         stage('Cleanup Previous Containers') {
             steps {
                 script {
-                    sh 'docker compose -f ./docker/deployment/app.yml down'
+                    sh 'docker compose -f $DOCKER_COMPOSE_FILE down'
                 }
             }
         }
@@ -21,7 +25,7 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
-                    sh 'docker compose -f ./docker/deployment/app.yml build'
+                    sh 'docker compose -f $DOCKER_COMPOSE_FILE build'
                 }
             }
         }
@@ -29,7 +33,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 script {
-                    sh 'docker compose -f ./docker/deployment/app.yml up -d'
+                    sh 'docker compose -f $DOCKER_COMPOSE_FILE up -d'
                 }
             }
         }
