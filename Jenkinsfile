@@ -18,10 +18,7 @@ pipeline {
         stage('Cleanup Previous Containers') {
             steps {
                 script {
-                    // Run the Docker Compose up command using the correct path and environment variables
-                    withEnv(["DJANGO_SETTINGS_MODULE=$DJANGO_SETTINGS_MODULE"]) {
-                        sh "docker compose -f $DOCKER_COMPOSE_FILE down"
-                    }
+                    sh "docker compose -f $DOCKER_COMPOSE_FILE down"
                 }
             }
         }
