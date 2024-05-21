@@ -18,7 +18,7 @@ pipeline {
         stage('Cleanup Previous Containers') {
             steps {
                 script {
-                    sh 'docker-compose down'
+                    sh "docker compose -f $DOCKER_COMPOSE_FILE down"
                 }
             }
         }
